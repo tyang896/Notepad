@@ -25,6 +25,7 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
+// Send a get request to the server to retrieve all notes in the database
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -33,6 +34,7 @@ const getNotes = () =>
     },
   });
 
+//Send a post request to the server
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
@@ -42,6 +44,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
+//Send a delete request to the server to remove a note
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -50,11 +53,12 @@ const deleteNote = (id) =>
     },
   });
 
+  //Used to render a note to the title and text area.
 const renderActiveNote = () => {
   hide(saveNoteBtn);
-
-  if (activeNote.note_id) {//If there is an activeNote id property, 
-    noteTitle.setAttribute('readonly', true);//Set a new attribute called 'readonly' to true
+  //If there is an activeNote id property, show those values on the right side of the screen
+  if (activeNote.note_id) {
+    noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
@@ -66,6 +70,7 @@ const renderActiveNote = () => {
   }
 };
 
+//Use saveNote function on line 38 to create a post request to the server to save note to database
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
@@ -83,9 +88,7 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  console.log(`This is the event target ${note}`)
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).note_id;
-  console.log(`This is the noteId ${noteId}`)
   if (activeNote.id === noteId) {
     activeNote = {};
   }
@@ -96,12 +99,10 @@ const handleNoteDelete = (e) => {
   });
 };
 
-// Sets the activeNote and displays it
+// Sets the activeNote and displays it with renderActiveNote on line 57
 const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
-  console.log(`This is the active Note ${activeNote}`);
-  console.log(activeNote);
   renderActiveNote();
 };
 
@@ -122,8 +123,6 @@ const handleRenderSaveBtn = () => {
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
-  // console.log("here are the jsonNotes")
-  // console.log(jsonNotes);
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
@@ -176,12 +175,8 @@ const renderNoteList = async (notes) => {
 };//End of renderNoteList function
 
 // Gets notes from the db and renders them to the sidebar
-// const getAndRenderNotes = () => getNotes().then(renderNoteList);
-
 const getAndRenderNotes = () => getNotes()
 .then((answers) => {
-  // console.log("Here are the answers:")
-  // console.log(answers);
   renderNoteList(answers);
 
 });
