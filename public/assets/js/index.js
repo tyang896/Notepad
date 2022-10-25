@@ -53,7 +53,7 @@ const deleteNote = (id) =>
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
-  if (activeNote.id) {//If there is an activeNote id property, 
+  if (activeNote.note_id) {//If there is an activeNote id property, 
     noteTitle.setAttribute('readonly', true);//Set a new attribute called 'readonly' to true
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
@@ -100,6 +100,8 @@ const handleNoteDelete = (e) => {
 const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
+  console.log(`This is the active Note ${activeNote}`);
+  console.log(activeNote);
   renderActiveNote();
 };
 
@@ -120,8 +122,8 @@ const handleRenderSaveBtn = () => {
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
-  console.log("here are the jsonNotes")
-  console.log(jsonNotes);
+  // console.log("here are the jsonNotes")
+  // console.log(jsonNotes);
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
@@ -171,15 +173,15 @@ const renderNoteList = async (notes) => {
   if (window.location.pathname === '/notes') {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
-};
+};//End of renderNoteList function
 
 // Gets notes from the db and renders them to the sidebar
 // const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
 const getAndRenderNotes = () => getNotes()
 .then((answers) => {
-  console.log("Here are the answers:")
-  console.log(answers);
+  // console.log("Here are the answers:")
+  // console.log(answers);
   renderNoteList(answers);
 
 });

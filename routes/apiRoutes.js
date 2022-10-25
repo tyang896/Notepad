@@ -17,6 +17,7 @@ notes.get('/notes', (req, res) => {
     );
 });
 
+//ROUTE: api/notes
 notes.post('/notes', (req, res) => {
     console.info(`${req.method} request received to add a new note`);
     console.info(req.body);
