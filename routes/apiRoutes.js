@@ -61,6 +61,8 @@ notes.post('/notes', (req, res) => {
 // ROUTE: api/notes/:id
 notes.delete('/notes/:id', (req, res) => {
     const noteId = req.params.id;
+    console.log("Here is the noteId")
+    console.log(noteId);
     readFromFile('./db/db.json')
         .then((data) => JSON.parse(data))
         .then((json) => {
