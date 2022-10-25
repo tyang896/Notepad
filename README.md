@@ -13,7 +13,10 @@ npm i
 ```
 
 ## Usage
-To use this application locally, open the `server.js` file in a terminal and run `node server.js`. Once the server is running, you can view the application on a browser from `http://localhost:3001`
+To use this application locally, open the `server.js` file in a terminal and run `node server.js`. Once the server is running, you can view the application from a browser on `http://localhost:3001`
+
+
+You can view a live demonstration of the application [here](https://shielded-stream-83364.herokuapp.com/)
 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT)
