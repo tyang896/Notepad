@@ -5,8 +5,8 @@ let newNoteBtn;
 let noteList;
 
 if (window.location.pathname === '/notes') {
-  noteTitle = document.querySelector('.note-title');
-  noteText = document.querySelector('.note-textarea');
+  noteTitle = document.querySelector('.note-title');//Main input in the title text field
+  noteText = document.querySelector('.note-textarea');//Main text in the textarea field
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
@@ -53,8 +53,8 @@ const deleteNote = (id) =>
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
-  if (activeNote.id) {
-    noteTitle.setAttribute('readonly', true);
+  if (activeNote.id) {//If there is an activeNote id property, 
+    noteTitle.setAttribute('readonly', true);//Set a new attribute called 'readonly' to true
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
@@ -119,6 +119,8 @@ const handleRenderSaveBtn = () => {
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
+  console.log("here are the jsonNotes")
+  console.log(jsonNotes);
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
@@ -171,7 +173,15 @@ const renderNoteList = async (notes) => {
 };
 
 // Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then(renderNoteList);
+// const getAndRenderNotes = () => getNotes().then(renderNoteList);
+
+const getAndRenderNotes = () => getNotes()
+.then((answers) => {
+  console.log("Here are the answers:")
+  console.log(answers);
+  renderNoteList(answers);
+
+});
 
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);

@@ -6,8 +6,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use('/notes', routers);
-
+app.use(routers);
 
 app.use(express.static("public"));
 
